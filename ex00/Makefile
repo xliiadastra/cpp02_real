@@ -18,8 +18,8 @@ all		: $(NAME)
 $(NAME)		: $(OBJS)
 		$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c
-		$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $(<:.c=.o)
+%.o: %.cpp
+		$(CC) $(CFLAGS) -c $< -o $(<:.cpp=.o)
 
 clean		:
 		$(RM) $(RMFLAGS) $(OBJS)

@@ -2,32 +2,32 @@
 
 Fixed::Fixed()
 {
-    std::cout << "Default constructor called" << std::endl;
+//    std::cout << "Default constructor called" << std::endl;
     this->value = 0;
 }
 
 Fixed::Fixed(const int num)
 {
-    std::cout << "Int constructor called" << std::endl;
+//    std::cout << "Int constructor called" << std::endl;
     this->value = num << fraction;
 }
 
 Fixed::Fixed(const float num)
 {
-    std::cout << "Float constructor called" << std::endl;
+//    std::cout << "Float constructor called" << std::endl;
     this->value = roundf(num * (1 << fraction)); // 반올림 함수. fraction번째 이후로 반올림.
 }
 
 Fixed::Fixed( const Fixed& orig )
 {
-    std::cout << "Copy constructor called" << std::endl;
+//    std::cout << "Copy constructor called" << std::endl;
 
     *this = orig; // 자신을 가리키는 포인터라서 *을 붙여야 한다.
 }
 
 Fixed&  Fixed::operator=( const Fixed& orig )
 {
-    std::cout << "Copy assignment operator called" << std::endl;
+//    std::cout << "Copy assignment operator called" << std::endl;
 
     value = orig.getRawBits();
     return (*this);
@@ -42,7 +42,7 @@ std::ostream& operator<<(std::ostream& outputStream, const Fixed& fixed)
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
+//    std::cout << "Destructor called" << std::endl;
 }
 
 int Fixed::getRawBits( void ) const
@@ -123,7 +123,7 @@ Fixed    Fixed::operator*(const Fixed& obj) const
 {
     Fixed   tmp;
 
-    tmp.setRawBits(this->getRawBits() * obj.getRawBits());
+    tmp.setRawBits((this->getRawBits() * obj.getRawBits()) >> fraction);
     return (tmp);
 }
 
@@ -131,37 +131,67 @@ Fixed    Fixed::operator/(const Fixed& obj) const
 {
     Fixed   tmp;
 
-    tmp.setRawBits(this->getRawBits() / obj.getRawBits());
+    tmp.setRawBits((this->getRawBits() << fraction) / obj.getRawBits());
     return (tmp);
 }
 
-static Fixed&   min(Fixed &a, Fixed &b)
+Fixed&  Fixed::operator++(void)
 {
-    if (a < b)
+    this->value += 1;
+    return (*this);
+}
+
+Fixed   Fixed::operator++(int orig)
+{
+    static_cast<void>(orig);
+    Fixed   tmp(*this);
+
+    this->value += 1;
+    return (tmp);
+}
+
+Fixed&  Fixed::operator--(void)
+{
+    this->value += 1;
+    return (*this);
+}
+
+Fixed   Fixed::operator--(int orig)
+{
+    static_cast<void>(orig);
+    Fixed   tmp(*this);
+
+    this->value -= 1;
+    return (tmp);
+}
+
+Fixed&   Fixed::min(Fixed &a, Fixed &b)
+{
+    if (a.value < b.value)
         return (a);
     else
         return (b);
 }
 
-static const Fixed& min(const Fixed &a, const Fixed &b)
+Fixed&   Fixed::max(Fixed &a, Fixed &b)
 {
-    if (a < b)
+    if (a.value > b.value)
         return (a);
     else
         return (b);
 }
 
-static Fixed&   max(Fixed &a, Fixed &b)
+const Fixed& Fixed::min(Fixed const &a, Fixed const &b)
 {
-    if (a > b)
+    if (a.value < b.value)
         return (a);
     else
         return (b);
 }
 
-static const Fixed& max(const Fixed &a, const Fixed &b)
+const Fixed& Fixed::max(Fixed const &a, Fixed const &b)
 {
-    if (a > b)
+    if (a.value > b.value)
         return (a);
     else
         return (b);

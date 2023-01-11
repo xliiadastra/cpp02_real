@@ -37,6 +37,17 @@ Fixed&  Fixed::operator=( const Fixed& orig )
 
 //operator<<()
 //구현
+// operator>();
+// operator<();
+// operator>=();
+// operator<=();
+// operator==();
+// operator!=();
+
+// operator+();
+// operator-();
+// operator*();
+// operator/();
 
 Fixed::~Fixed()
 {

@@ -105,20 +105,64 @@ bool    Fixed::operator!=(const Fixed& obj) const
 
 Fixed    Fixed::operator+(const Fixed& obj) const
 {
-    return (this->getRawBits() + obj.getRawBits());
+    Fixed   tmp;
+
+    tmp.setRawBits(this->getRawBits() + obj.getRawBits());
+    return (tmp);
 }
 
 Fixed    Fixed::operator-(const Fixed& obj) const
 {
-    return (this->getRawBits() - obj.getRawBits());
+    Fixed   tmp;
+
+    tmp.setRawBits(this->getRawBits() - obj.getRawBits());
+    return (tmp);
 }
 
 Fixed    Fixed::operator*(const Fixed& obj) const
 {
-    return (this->getRawBits() * obj.getRawBits());
+    Fixed   tmp;
+
+    tmp.setRawBits(this->getRawBits() * obj.getRawBits());
+    return (tmp);
 }
 
 Fixed    Fixed::operator/(const Fixed& obj) const
 {
-    return (this->getRawBits() / obj.getRawBits());
+    Fixed   tmp;
+
+    tmp.setRawBits(this->getRawBits() / obj.getRawBits());
+    return (tmp);
+}
+
+static Fixed&   min(Fixed &a, Fixed &b)
+{
+    if (a < b)
+        return (a);
+    else
+        return (b);
+}
+
+static const Fixed& min(const Fixed &a, const Fixed &b)
+{
+    if (a < b)
+        return (a);
+    else
+        return (b);
+}
+
+static Fixed&   max(Fixed &a, Fixed &b)
+{
+    if (a > b)
+        return (a);
+    else
+        return (b);
+}
+
+static const Fixed& max(const Fixed &a, const Fixed &b)
+{
+    if (a > b)
+        return (a);
+    else
+        return (b);
 }

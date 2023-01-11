@@ -11,12 +11,18 @@ private:
 
 public:
     Fixed();
-    ~Fixed();
-    Fixed( const Fixed& orig );
-
+    Fixed( const int num );
+    Fixed( const float num );
+    Fixed( const Fixed &orig );
     Fixed&   operator=( const Fixed& orig );
+    ~Fixed();
+
     int     getRawBits( void ) const;
     void    setRawBits( int const raw );
+    float   toFloat( void ) const ;
+    int     toInt( void ) const;
 };
+
+//operator<<();
 
 #endif

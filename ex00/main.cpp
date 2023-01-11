@@ -8,7 +8,7 @@ int main( void )
 
     c = b; // 복사 대입 연산자 == c.operator=(b);
     
-    std::cout << a.getRawBits() << std::endl;
+    std::cout << a.getRawBits() << std::endl; // value 출력.
     std::cout << b.getRawBits() << std::endl;
     std::cout << c.getRawBits() << std::endl;
     

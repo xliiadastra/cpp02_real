@@ -60,7 +60,7 @@ void    Fixed::setRawBits( int const raw )
 float Fixed::toFloat( void ) const
 {
     float   num;
-
+// 고정소수점에 의해 소수점을 뒤로 보내준 것을 다시 fraction 만큼 앞으로 당기기
     num = float(this->value) / (1 << fraction); // ex) (10 * 256) / (256) = 10
     return (num);
 }
@@ -69,7 +69,7 @@ int Fixed::toInt( void ) const
 {
     int num;
 
-    num  = this->value >> fraction; // 고정소수점에 의해 소수점을 뒤로 보내준 것을 다시 fraction 만큼 앞으로 당기기
+    num  = this->value >> fraction; // 소수점의 값을 유지하기위해 비트를 밀어 정수형으로 만들기.
     return (num);
 }
 
@@ -127,6 +127,13 @@ Fixed    Fixed::operator*(const Fixed& obj) const
     return (tmp);
 }
 
+// Fixed    Fixed::operator*(const Fixed& obj) const
+// {
+//     Fixed   tmp(this->toFloat() * obj.toFloat());
+
+//     return (tmp);
+// }
+
 Fixed    Fixed::operator/(const Fixed& obj) const
 {
     Fixed   tmp;
@@ -134,6 +141,13 @@ Fixed    Fixed::operator/(const Fixed& obj) const
     tmp.setRawBits((this->getRawBits() << fraction) / obj.getRawBits());
     return (tmp);
 }
+
+// Fixed    Fixed::operator/(const Fixed& obj) const
+// {
+//     Fixed   tmp(this->toFloat() / obj.toFloat());
+
+//     return (tmp);
+// }
 
 Fixed&  Fixed::operator++(void)
 {
